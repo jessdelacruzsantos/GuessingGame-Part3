@@ -26,24 +26,23 @@ Game.prototype.playersGuessSubmission = function(guess) {
     if(typeof guess !== 'number' || guess < 1 || guess > 100) {
         throw "That is an invalid guess.";
     }
+
     this.playersGuess = guess;
     return this.checkGuess();
 }
 
 Game.prototype.checkGuess = function() {
-    if(this.playersGuess===this.winningNumber) {
+    if(this.playersGuess === this.winningNumber) {
         return 'You Win!'
     }
     else {
         if(this.pastGuesses.indexOf(this.playersGuess) > -1) {
             return 'You have already guessed that number.';
-        }
-        else {
+        } else {
             this.pastGuesses.push(this.playersGuess);
             if(this.pastGuesses.length === 5) {
                 return 'You Lose.';
-            }
-            else {
+            }else {
                 var diff = this.difference();
                 if(diff < 10) return'You\'re burning up!';
                 else if(diff < 25) return'You\'re lukewarm.';
