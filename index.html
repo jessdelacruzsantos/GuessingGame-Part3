@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guessing Game</title>
 
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
@@ -19,10 +20,15 @@
           <h3 id='subtitle'>Guess a number between 1-100!</h3>
         </div>
 
+        <div id='out-put'>
+          <h2 class='hint-pop-up'id='out-put-message'>Test Message</h2>
+          <h2 class='hint-pop-up' id='hint-limit'>You Only Get ONE Hint!!</h2>
+        </div>
+
         <div id='main'>
           <div id='input-parent'>
             <input id='player-input' class='center' placeholder="#" maxlength='3' autofocus=autofocus></input>
-            <button class='btn btn-success' id='submit'>Go!</button>
+            <button class='btn btn-success' id='submit'type='button'>Go!</button>
           </div>
 
           <div id='guesses'class="container-fluid">
@@ -36,8 +42,8 @@
           </div>
 
           <div id="menu-btns">
-            <button class='btn btn-large center' id='reset'>Reset</button>
-            <button class='btn btn-large center' id='hint'>Hint</button>
+            <button class='btn btn-large btn-primary center' id='reset'>Reset</button>
+            <button class='btn btn-large btn-info' id='hint'>Hint</button>
           </div>
         </div>
       </div>

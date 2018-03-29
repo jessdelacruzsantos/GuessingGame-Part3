@@ -26,6 +26,7 @@ Game.prototype.isLower = function() {
 
 Game.prototype.playersGuessSubmission = function(guess) {
     if(isNaN(guess) || guess < 1 || guess > 100) {
+        outPut("That is an invalid guess.");
         throw "That is an invalid guess.";
     }
 
@@ -82,6 +83,7 @@ function higherOrLower(boo) {
 ////////////////////////////////////////////////////////////////////////////////////
 
 function logGuess(mess, game) { // Depending on message different actions are taken
+
     if (mess === 'You have already guessed that number.' ) {
         $('#title').text(mess); // If guess is duplicate makes message
     } else {
@@ -92,14 +94,22 @@ function logGuess(mess, game) { // Depending on message different actions are ta
             }
         });
         //
-        if (mess === 'You Lose.' || mess === 'You Win!') {
-            $('#title').text(mess);
+        if (mess === 'You Lose.') {
+            $('#title').css('color','red').text(mess);
             $('#subtitle').text('Press the Reset Button.');
             disableButtons();
-        } else {
-            console.log(mess + higherOrLower(game.isLower()));
+        } else if ( mess === 'You Win!') {
+            $('#title').css('color','green').text(mess);
+            $('#subtitle').text('Press the Reset Button.');
+            disableButtons();} 
+        else { 
+            outPut( mess + higherOrLower(game.isLower()) );
         }
     }
+}
+function outPut(str) {
+    $('#out-put-message').css('color','blue').text(str);
+    $('#out-put-message').show();
 }
 
 function makeAGuess(game) { // Extracts value from player input and gets message
@@ -108,11 +118,9 @@ function makeAGuess(game) { // Extracts value from player input and gets message
 
     $('#player-input').val('');
     defaultTitles();
-   
 
     logGuess(mess, game);
 }
-
 function disableButtons() {
     $('#submit').attr('disabled', true);
     $('#hint').attr('disabled', true);
@@ -122,19 +130,37 @@ function enableButtons() {
     $('#hint').attr('disabled', false);
 }
 function defaultTitles() {
-    $('#title').text('Play the Guessing Game!');
-    $('#subtitle').text('Guess a number between 1-100!');
+    $('#title').css('color', 'black').text('Play the Guessing Game!');
+    $('#subtitle').css('color', 'black').text('Guess a number between 1-100!');
+    $('#out-put-message').hide();
+    $('#hint-limit').hide();
 }
 
 function defaultInputs() {
     $('#player-input').val('');
     $('.guess').text('-');
 }
+
+function oneTime(func) {
+    var executed = false;
+
+    return function (input) {
+        if (!executed ) {
+            executed = true;
+            return func(input);
+        } else {
+            $('#out-put-message').toggle();
+            $('#hint-limit').toggle();
+            //func("You only get one hint!!!")
+        }
+    }
+}
 ////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Game in Jquery/////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////
 $(document).ready(() => {
     let game = newGame();
+    let onceOutPut = oneTime(outPut);
 
     $('.btn-success').on('click', () => { //Pressing submit logs info in game obj and logs a message
         makeAGuess(game);
@@ -146,13 +172,15 @@ $(document).ready(() => {
     })
     $('#reset').on('click', () => { //Sets game to a new Game
         game = newGame();
+        onceOutPut = oneTime(outPut);
         defaultTitles();
         defaultInputs();
         enableButtons();
     });
     $('#hint').on('click', () => { // Logs the hint
+        
         var mess = game.provideHint().toString();
 
-        console.log(`Here is your hint: \n[${mess}]`);
+        onceOutPut(`Here is your hint: \n[${mess}]`);
     });
 })
