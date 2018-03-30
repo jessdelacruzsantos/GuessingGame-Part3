@@ -11,8 +11,7 @@ html {
     box-sizing: border-box
 }
 img {
-    display: inline;
-    width: 200px;
+    height: 100px;
 }
 #footer {
     width: 100%;
@@ -84,5 +83,7 @@ body {
     text-shadow: 2px 2px 4px #000000;
 }
 .stop-stretch {
- 
+    display: inline;
+    width: 200px;
+    height: 100px;
 }
