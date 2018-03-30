@@ -19,8 +19,11 @@ img {
     width: 100%;
     border-top: solid 2px black;
     background-color: white;
-    position: static;
+    position: fixed;
+    bottom: 0;
+    margin-top: 100%;
     opacity: .75;
+    z-index: 1;
 }
 .center {
     text-align: center;
@@ -67,7 +70,8 @@ body {
 
 #app {
     width: 60%;
-    margin: 50px auto;
+    margin-top: 50px auto;
+    margin-bottom: 125px;
     background-color: rgba(256, 256, 256, 0.5)
 }
 #headers {
