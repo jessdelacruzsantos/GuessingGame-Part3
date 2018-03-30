@@ -184,4 +184,4 @@ $(document).ready(() => {
 
         onceOutPut(`Here is your hint: \n[${mess}]`);
     });
-})
+});
