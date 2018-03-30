@@ -84,3 +84,6 @@ body {
     color: orchid; 
     text-shadow: 2px 2px 4px #000000;
 }
+.stop-stretch {
+    overflow: hidden;
+}
